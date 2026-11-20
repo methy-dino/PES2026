@@ -21,7 +21,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.ArrayList;
 public class SelecaoProfessores extends Stage {
+    Stage telaAnterior;
     SelecaoProfessores(ArrayList<Professor> listaProf){
-        /* TODO carregar lista professores */
+        /* TODO carregar lista professores e tambem criar bota de criar novo*/
     }
 }
