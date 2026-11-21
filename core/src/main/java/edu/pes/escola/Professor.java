@@ -5,6 +5,7 @@ import java.util.Comparator;
 /* acho que ta pronto*/
 public class Professor {
     private ArrayList<ArrayList<HorarioSemana>> horariosProfessor;
+    private ArrayList<Materia> materiasLencionaveis;
     public Professor() {
         horariosProfessor = new ArrayList<ArrayList<HorarioSemana>>(7);
     }
