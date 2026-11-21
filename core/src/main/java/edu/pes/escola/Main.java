@@ -42,12 +42,13 @@ public class Main extends ApplicationAdapter {
     @Override
     public void create(){
             skinAtual = new Skin(Gdx.files.internal("ui/uiskin.json"));
+            telaAtual = new TelaEdicaoProfessor(null, skinAtual, new ArrayList<Professor>(2));
     }
     @Override
     public void render() {
         ScreenUtils.clear(0f,0f,0f,1f);
-        //telaAtual.act(Gdx.graphics.getDeltaTime());
-        //telaAtual.render();
+        telaAtual.act(Gdx.graphics.getDeltaTime());
+        telaAtual.draw();
     }
     @Override
     public void resize(int width, int height){

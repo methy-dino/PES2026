@@ -1,5 +1,8 @@
 package edu.pes.escola;
 import java.lang.Integer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 /* acho que tá completa */
 public class Turma {
     private ArrayList<ArrayList<HorarioSemana>> horariosAula;
