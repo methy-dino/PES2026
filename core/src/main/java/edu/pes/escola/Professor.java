@@ -21,14 +21,23 @@ public class Professor {
             int fimAntigo = horariosDia.get(i).GetFim();
             if (comecoNovo <= fimAntigo+1 || fimNovo >= comecoAntigo-1) {
                 /* modificar horário antigo */
-                horariosDia.get(i).SetInicio(Math.min(comecoNovo, comecoAntigo));
-                horariosDia.get(i).SetFim(Math.min(fimNovo, fimAntigo));
-            }
+                fimNovo = Math.max(fimNovo, fimAntigo);
+                comecoNovo = Math.min(comecoNovo, comecoAntigo);
+                while (fimNovo >= comecoAntigo2-1){
+                    // remover elemento atual
+                    comecoAntigo2 = horariosDia.get(i).GetInicio();
+                    fimNovo = Math.max(fimNovo, horariosDia.get(i).GetFim());
+                    comecoNovo = Math.min(comecoNovo, horariosDia.get(i).GetInicio());
+                }
+                comecoAntigo = horariosDia.get(i).GetInicio();
+                fimAntigo = horariosDia.get(i).GetFim();
+                horariosDia.get(i).SetInicio(comecoNovo);
+                horariosDia.get(i).SetFim(fimNovo);
+                return;
         }
         horariosDia.add(hora);
         Comparator<HorarioSemana> a = new sortHora();
         Collections.sort(horariosDia, a);
-
     }
 }
 class sortHora implements Comparator<HorarioSemana> {
