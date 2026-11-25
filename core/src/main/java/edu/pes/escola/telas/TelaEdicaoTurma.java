@@ -28,13 +28,13 @@ public class TelaEdicaoTurma extends Stage {
         raiz.add(new Label("Nova Turma", skin)).left().row();
 
         final TextField campoNome = new TextField("", skin);
-        campoNome.setMessageText("Ex: Turma A");
+        campoNome.setMessageText("Turma");
 
         final SelectBox<String> boxSerie = new SelectBox<>(skin);
         boxSerie.setItems("Selecione a série", "6° Ano", "7° Ano", "8° Ano", "9° Ano", "1º EM", "2º EM", "3º EM");
 
-        final TextField campoDuracao = new TextField("", skin);
-        campoDuracao.setMessageText("Ex: 50");
+        final SelectBox<String> boxTurno = new SelectBox<>(skin);
+        boxTurno.setItems("Manhã", "Tarde");
 
         String[] nomesDisciplinas = {"Matemática", "Português", "Física", "Química", "História", "Geografia"};
         final ArrayList<CheckBox> checks = new ArrayList<>();
@@ -45,8 +45,8 @@ public class TelaEdicaoTurma extends Stage {
         raiz.add(new Label("Série/Ano", skin)).left().row();
         raiz.add(boxSerie).width(240).padBottom(8).left().row();
 
-        raiz.add(new Label("Duração da Aula (minutos)", skin)).left().row();
-        raiz.add(campoDuracao).width(240).padBottom(8).left().row();
+        raiz.add(new Label("Turno", skin)).left().row();
+        raiz.add(boxTurno).width(240).padBottom(8).left().row();
 
         raiz.add(new Label("Disciplinas", skin)).left().padBottom(4).row();
         for (String d : nomesDisciplinas) {
@@ -71,7 +71,7 @@ public class TelaEdicaoTurma extends Stage {
                 for (CheckBox cb : checks) {
                     if (cb.isChecked()) escolhidas.add(cb.getText().toString());
                 }
-                String resumo = nome + " - " + boxSerie.getSelected() + " (" + escolhidas.size() + " disc.)";
+                String resumo = nome + " - " + boxSerie.getSelected() + " (" + boxTurno.getSelected() + ", " + escolhidas.size() + " disc.)";
                 listaTurmas.add(resumo);
                 voltar();
             }

@@ -60,12 +60,12 @@ public class TelaSelecaoTurma extends Stage {
             return;
         }
         for (int i = 0; i < listaTurmas.size(); i++) {
-			final int indice = i;
+            final int idx = i;
             TextButton btnRemover = new TextButton("Remover", skin);
             btnRemover.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    listaTurmas.remove(indice);
+                    listaTurmas.remove(idx);
                     atualizarLista();
                 }
             });

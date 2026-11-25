@@ -3,7 +3,7 @@ import java.lang.Integer;
 /* acho que tá completa */
 public class Materia {
     private String nome;
-    /* Representa a quantidade de HORAS aula, não em minutos */
+    /* O conjunto é [minutoInicial, minutoFinal].*/
     private int horaAula;
     public Materia(String nomeMateria, int quantidadeAulas){
         nome = nomeMateria;

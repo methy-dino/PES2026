@@ -10,17 +10,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TelaSelecaoProfessores extends Stage {
     private Stage telaAnterior;
     private Skin skin;
     private ArrayList<Professor> listaProf;
+    private HashMap<String, ArrayList<String>> mapaProfessores;
     private Table painelProf;
 
-    public TelaSelecaoProfessores(Stage telaAnterior, Skin skin, ArrayList<Professor> listaProf) {
+    public TelaSelecaoProfessores(Stage telaAnterior, Skin skin, ArrayList<Professor> listaProf, HashMap<String, ArrayList<String>> mapaProfessores) {
         this.telaAnterior = telaAnterior;
         this.skin = skin;
         this.listaProf = listaProf;
+        this.mapaProfessores = mapaProfessores;
 
         Table raiz = new Table();
         raiz.setFillParent(true);
@@ -37,7 +40,7 @@ public class TelaSelecaoProfessores extends Stage {
         btnNovo.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.input.setInputProcessor(new TelaEdicaoProfessor(TelaSelecaoProfessores.this, skin, listaProf));
+                Gdx.input.setInputProcessor(new TelaEdicaoProfessor(TelaSelecaoProfessores.this, skin, listaProf, mapaProfessores));
             }
         });
 
@@ -55,21 +58,26 @@ public class TelaSelecaoProfessores extends Stage {
 
     public void atualizarLista() {
         painelProf.clear();
-        if (listaProf == null || listaProf.isEmpty()) {
+        if (mapaProfessores == null || mapaProfessores.isEmpty()) {
             painelProf.add(new Label("Nenhum professor cadastrado ainda.", skin)).left();
             return;
         }
-        for (int i = 0; i < listaProf.size(); i++) {
+        ArrayList<String> nomes = new ArrayList<>(mapaProfessores.keySet());
+        for (int i = 0; i < nomes.size(); i++) {
+            final String nome = nomes.get(i);
             final int idx = i;
             TextButton btnRemover = new TextButton("Remover", skin);
             btnRemover.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    listaProf.remove(idx);
+                    mapaProfessores.remove(nome);
+                    if (listaProf != null && idx < listaProf.size()) {
+                        listaProf.remove(idx);
+                    }
                     atualizarLista();
                 }
             });
-            painelProf.add(new Label("Professor " + (i + 1), skin)).padRight(10).left();
+            painelProf.add(new Label(nome + " (" + mapaProfessores.get(nome).size() + " disc.)", skin)).padRight(10).left();
             painelProf.add(btnRemover).left().row();
         }
     }

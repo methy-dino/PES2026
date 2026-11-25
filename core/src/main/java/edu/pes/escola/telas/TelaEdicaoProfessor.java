@@ -12,11 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TelaEdicaoProfessor extends Stage {
     private Stage telaAnterior;
 
-    public TelaEdicaoProfessor(Stage telaAnterior, Skin skin, ArrayList<Professor> listaProf) {
+    public TelaEdicaoProfessor(Stage telaAnterior, Skin skin, ArrayList<Professor> listaProf, HashMap<String, ArrayList<String>> mapaProfessores) {
         this.telaAnterior = telaAnterior;
 
         Table raiz = new Table();
@@ -55,7 +56,8 @@ public class TelaEdicaoProfessor extends Stage {
         btnAdd.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (campoNome.getText().trim().isEmpty()) {
+                String nome = campoNome.getText().trim();
+                if (nome.isEmpty()) {
                     lblMsg.setText("Informe o nome do professor.");
                     return;
                 }
@@ -68,7 +70,15 @@ public class TelaEdicaoProfessor extends Stage {
                         }
                     }
                 }
-                listaProf.add(p);
+                ArrayList<String> discEscolhidas = new ArrayList<>();
+                for (CheckBox cb : checksDisc) {
+                    if (cb.isChecked()) {
+                        discEscolhidas.add(cb.getText().toString());
+                    }
+                }
+                if (listaProf != null) listaProf.add(p);
+                if (mapaProfessores != null) mapaProfessores.put(nome, discEscolhidas);
+
                 if (telaAnterior instanceof TelaSelecaoProfessores) {
                     ((TelaSelecaoProfessores) telaAnterior).atualizarLista();
                 }
